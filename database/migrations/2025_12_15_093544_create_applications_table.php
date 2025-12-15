@@ -23,6 +23,9 @@ return new class extends Migration
             $table->text('medical_notes')->nullable();
             $table->enum('status', ['pending', 'approved', 'rejected', 'missing_documents'])->default('pending');
             $table->text('admin_notes')->nullable();
+            $table->string('student_photo')->nullable();
+            $table->string('birth_certificate')->nullable();
+            $table->string('civil_id')->nullable();
             $table->timestamps();
         });
     }

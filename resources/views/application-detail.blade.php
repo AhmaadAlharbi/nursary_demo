@@ -72,7 +72,7 @@
 
             <div class="bg-white rounded-xl p-4">
                 <p class="text-sm text-gray-600 mb-1">رقم الجوال</p>
-                <p class="font-semibold text-gray-800" dir="ltr">{{ $application->parent_phone }}</p>
+                <p class="font-semibold text-gray-800" dir="ltr">+965 {{ $application->parent_phone }}</p>
             </div>
 
             <div class="bg-white rounded-xl p-4 md:col-span-2">
@@ -86,6 +86,84 @@
             </div>
         </div>
     </div>
+
+    <!-- Attachments Section -->
+    @if($application->student_photo || $application->birth_certificate || $application->civil_id)
+    <div class="bg-gradient-to-r from-green-50 to-blue-50 rounded-2xl p-6 mb-6 border-2 border-green-100">
+        <h4 class="text-lg font-bold text-gray-800 mb-4 flex items-center">
+            <svg class="w-6 h-6 ml-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path>
+            </svg>
+            المرفقات
+        </h4>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            @if($application->student_photo)
+            <div class="bg-white rounded-xl p-4">
+                <div class="flex items-center justify-between mb-2">
+                    <p class="text-sm font-semibold text-gray-700">صورة الطفل</p>
+                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <a href="{{ asset('uploads/' . $application->student_photo) }}" target="_blank"
+                   class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 text-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                    </svg>
+                    عرض الملف
+                </a>
+            </div>
+            @endif
+
+            @if($application->birth_certificate)
+            <div class="bg-white rounded-xl p-4">
+                <div class="flex items-center justify-between mb-2">
+                    <p class="text-sm font-semibold text-gray-700">شهادة الميلاد</p>
+                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <a href="{{ asset('uploads/' . $application->birth_certificate) }}" target="_blank"
+                   class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 text-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    تحميل الملف
+                </a>
+            </div>
+            @endif
+
+            @if($application->civil_id)
+            <div class="bg-white rounded-xl p-4">
+                <div class="flex items-center justify-between mb-2">
+                    <p class="text-sm font-semibold text-gray-700">البطاقة المدنية</p>
+                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+                <a href="{{ asset('uploads/' . $application->civil_id) }}" target="_blank"
+                   class="inline-flex items-center gap-2 text-blue-600 hover:text-blue-800 text-sm">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    تحميل الملف
+                </a>
+            </div>
+            @endif
+        </div>
+    </div>
+    @else
+    <div class="bg-yellow-50 border-2 border-yellow-200 rounded-2xl p-6 mb-6">
+        <div class="flex items-center gap-3">
+            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
+            </svg>
+            <p class="text-sm font-semibold text-yellow-800">لم يتم رفع أي مرفقات بعد</p>
+        </div>
+    </div>
+    @endif
 
     <!-- Additional Information -->
     <div class="bg-gray-50 rounded-2xl p-6 mb-6 border-2 border-gray-100">

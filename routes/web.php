@@ -14,4 +14,6 @@ Route::prefix('dashboard')->group(function () {
     Route::get('/application/{application}', [DashboardController::class, 'show'])->name('application.show');
     Route::post('/application/{application}/status', [DashboardController::class, 'updateStatus'])->name('application.status');
     Route::delete('/application/{application}', [DashboardController::class, 'destroy'])->name('application.destroy');
+    Route::get('/application/{application}/view', [DashboardController::class, 'view'])
+        ->name('application.view');
 });

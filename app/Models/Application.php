@@ -20,6 +20,9 @@ class Application extends Model
         'medical_notes',
         'status',
         'admin_notes',
+        'student_photo',     // Added
+        'birth_certificate', // Added
+        'civil_id',          // Added
     ];
 
     protected $casts = [
@@ -48,14 +51,31 @@ class Application extends Model
         };
     }
 
-    public function getAgeAttribute(): string
+    // بدل getAgeAttribute
+    public function getCalculatedAgeAttribute(): string
     {
-        $years = $this->birth_date->diffInYears(now());
-        $months = $this->birth_date->diffInMonths(now()) % 12;
+        if (!$this->birth_date) {
+            return '-';
+        }
+
+        $birthDate = $this->birth_date; // Carbon بسبب cast
+        $now = now();
+
+        $totalMonths = $birthDate->diffInMonths($now);
+
+        $years = intdiv($totalMonths, 12);
+        $months = $totalMonths % 12;
 
         if ($years > 0) {
-            return "$years سنة و $months شهر";
+            return "{$years} سنة و {$months} شهر";
         }
-        return "$months شهر";
+
+        return "{$months} شهر";
     }
+
+
+
+
+    // وفي الـ view استخدم:
+
 }

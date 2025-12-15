@@ -68,4 +68,8 @@ class DashboardController extends Controller
         $application->delete();
         return redirect()->route('dashboard')->with('success', 'تم حذف الطلب بنجاح');
     }
+    public function view(Application $application)
+    {
+        return view('application-view', compact('application'));
+    }
 }

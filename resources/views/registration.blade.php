@@ -50,7 +50,7 @@
                 </div>
             @endif
 
-            <form action="{{ route('registration.store') }}" method="POST" class="space-y-6">
+            <form action="{{ route('registration.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
                 @csrf
 
                 <!-- Student Information -->
@@ -113,9 +113,16 @@
 
                         <div>
                             <label class="block text-sm font-semibold text-gray-700 mb-2">رقم الجوال *</label>
-                            <input type="tel" name="parent_phone" value="{{ old('parent_phone') }}" 
-                                   class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 transition-all"
-                                   placeholder="05xxxxxxxx" required>
+                            <div class="relative">
+                                <span class="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 font-semibold">+965</span>
+                                <input type="tel" name="parent_phone" value="{{ old('parent_phone') }}" 
+                                       class="w-full pl-4 pr-16 py-3 rounded-xl border-2 border-gray-200 transition-all"
+                                       placeholder="99887766" 
+                                       maxlength="8"
+                                       pattern="[569]\d{7}"
+                                       required>
+                            </div>
+                            <p class="text-xs text-gray-500 mt-1">8 أرقام تبدأ بـ 5، 6، أو 9</p>
                         </div>
 
                         <div>
@@ -129,7 +136,62 @@
                             <label class="block text-sm font-semibold text-gray-700 mb-2">العنوان *</label>
                             <textarea name="address" rows="1" 
                                       class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 transition-all"
-                                      placeholder="أدخل العنوان الكامل" required>{{ old('address') }}</textarea>
+                                      placeholder="المحافظة، المنطقة، القطعة، الشارع" required>{{ old('address') }}</textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Attachments Section -->
+                <div class="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-2xl border-2 border-green-100">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center">
+                        <svg class="w-6 h-6 ml-2 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"></path>
+                        </svg>
+                        المرفقات (اختياري)
+                    </h3>
+                    <p class="text-sm text-gray-600 mb-4">يمكنك رفع المستندات الآن أو لاحقاً</p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                <span class="flex items-center gap-2">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                    </svg>
+                                    صورة الطفل
+                                </span>
+                            </label>
+                            <input type="file" name="student_photo" accept="image/*"
+                                   class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 transition-all text-sm file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-purple-50 file:text-purple-700 hover:file:bg-purple-100">
+                            <p class="text-xs text-gray-500 mt-1">JPG, PNG (حد أقصى 2MB)</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                <span class="flex items-center gap-2">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                    </svg>
+                                    شهادة الميلاد
+                                </span>
+                            </label>
+                            <input type="file" name="birth_certificate" accept=".pdf,image/*"
+                                   class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 transition-all text-sm file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                            <p class="text-xs text-gray-500 mt-1">PDF, JPG, PNG (حد أقصى 2MB)</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                <span class="flex items-center gap-2">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V8a2 2 0 00-2-2h-5m-4 0V5a2 2 0 114 0v1m-4 0a2 2 0 104 0m-5 8a2 2 0 100-4 2 2 0 000 4zm0 0c1.306 0 2.417.835 2.83 2M9 14a3.001 3.001 0 00-2.83 2M15 11h3m-3 4h2"></path>
+                                    </svg>
+                                    البطاقة المدنية
+                                </span>
+                            </label>
+                            <input type="file" name="civil_id" accept=".pdf,image/*"
+                                   class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 transition-all text-sm file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-green-50 file:text-green-700 hover:file:bg-green-100">
+                            <p class="text-xs text-gray-500 mt-1">PDF, JPG, PNG (حد أقصى 2MB)</p>
                         </div>
                     </div>
                 </div>
